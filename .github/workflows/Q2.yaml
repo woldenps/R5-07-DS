@@ -18,7 +18,7 @@ jobs:
 
       - name: Créer le fichier Q2_archive_TOTO.txt
         run: |
-          echo "Nom : Dupont Jean" > Q2_archive_TOTO.txt
+          echo "Nom : Yachir Yanis" > Q2_archive_TOTO.txt
           echo "Date et heure d'exécution : $(date)" >> Q2_archive_TOTO.txt
           echo "" >> Q2_archive_TOTO.txt
           echo "Contenu de TOTO.txt :" >> Q2_archive_TOTO.txt
