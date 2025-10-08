@@ -1,0 +1,36 @@
+name: Q3
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  archive-java:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Créer le fichier Q3_archive_java.txt
+        run: |
+          echo "Nom : Yachir Yanis" > Q3_archive_java.txt
+          echo "" >> Q3_archive_java.txt
+          echo "Contenu du fichier Q3.java :" >> Q3_archive_java.txt
+          echo "-----------------------------------" >> Q3_archive_java.txt
+          cat Q3.java >> Q3_archive_java.txt
+
+      - name: Configurer Git
+        run: |
+          git config user.name "woldenps"
+          git config user.email "wolden7620@gmail.com"
+
+      - name: Commit et push du fichier archivé
+        run: |
+          git add Q3_archive_java.txt
+          git commit -m "Archive Q3 : ajout du fichier Q3_archive_java.txt"
+          git push
