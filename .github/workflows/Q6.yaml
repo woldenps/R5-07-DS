@@ -1,0 +1,62 @@
+name: Q6
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  archive-q6:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Créer le fichier Q6_archive_date.txt avec date et heure
+        run: |
+          TIMESTAMP=$(date +'%d-%m-%Y-%H%M%S')
+          ARCHIVE_NAME="Q6_archive_${TIMESTAMP}.txt"
+
+          echo "Nom : Yachir Yanis" > $ARCHIVE_NAME
+          echo "" >> $ARCHIVE_NAME
+          echo "Contenu du fichier Q6.java :" >> $ARCHIVE_NAME
+          echo "-----------------------------------" >> $ARCHIVE_NAME
+          cat Q6.java >> $ARCHIVE_NAME
+          echo "" >> $ARCHIVE_NAME
+
+          # Taille du fichier Q6.java
+          echo "Taille du fichier Q6.java :" >> $ARCHIVE_NAME
+          wc Q6.java >> $ARCHIVE_NAME
+
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+
+      - name: Créer le fichier Q6_différences.txt
+        run: |
+          # Récupérer le fichier archive précédent (le dernier fichier autre que celui créé)
+          PREV_ARCHIVE=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
+          if [ -f "$PREV_ARCHIVE" ]; then
+            DIFF_FILE="Q6_différences_${TIMESTAMP}.txt"
+            diff "$PREV_ARCHIVE" "$ARCHIVE_NAME" > "$DIFF_FILE" || true
+            echo "DIFF_FILE=$DIFF_FILE" >> $GITHUB_ENV
+          else
+            echo "Aucun fichier précédent trouvé, pas de différences à générer."
+          fi
+
+      - name: Configurer Git
+        run: |
+          git config user.name "woldenps"
+          git config user.email "wolden7620@gmail.com"
+
+      - name: Commit et push des fichiers
+        run: |
+          git add $ARCHIVE_NAME
+          if [ -n "$DIFF_FILE" ] && [ -f "$DIFF_FILE" ]; then
+            git add "$DIFF_FILE"
+          fi
+          git commit -m "Archive Q6 et différences - $TIMESTAMP" || echo "Aucun changement à committer"
+          git pull --rebase origin main
+          git push origin main
