@@ -1,27 +1,34 @@
 name: Q1
 
 on:
-  
-  push:
-    branches:
-      - main
   workflow_dispatch:
+  push:
+    branches: [ main ]
+
 jobs:
-  copy-file:
+  copy-toto:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout du dépôt
-        uses: actions/checkout@v4
+      
+    name: Récupérer le code
+          uses: actions/checkout@v4
 
-      - name: Créer une copie du fichier TOTO.txt
-        run: |
-          cp TOTO.txt Q1_archive_TOTO.txt
 
-      - name: Commit et push du fichier généré
-        run: |
-          git config user.name "woldenps"
-          git config user.email "wolden7620@gmail.com"
-          git add Q1_archive_TOTO.txt
-          git commit -m "Création automatique de Q1_archive_TOTO.txt"
-          git push
+    name: Copier le contenu de TOTO.txt
+          run: |
+            cp TOTO.txt Q1_archive_TOTO.txt
+
+    name: Configurer Git
+          run: |
+            git config user.name "woldenps"
+            git config user.email "wolden7620@gmail.com"
+            
+    name: Commit et push du fichier archivé
+          run: |
+            git add Q1_archive_TOTO.txt
+            git commit -m "Archive automatique de TOTO.txt"
+            git push
