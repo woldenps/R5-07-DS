@@ -1,0 +1,42 @@
+name: Q5
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  archive-q5:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Créer le fichier Q5_archive_date.txt avec la date du jour
+        run: |
+          DATE=$(date +'%d-%m-%Y')
+          ARCHIVE_NAME="Q5_archive_${DATE}.txt"
+
+          echo "Nom : Yachir Yanis" > $ARCHIVE_NAME
+          echo "" >> $ARCHIVE_NAME
+          echo "Contenu du fichier Q5.java :" >> $ARCHIVE_NAME
+          echo "-----------------------------------" >> $ARCHIVE_NAME
+          cat Q5.java >> $ARCHIVE_NAME
+
+          echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+
+      - name: Configurer Git
+        run: |
+          git config user.name "woldenps"
+          git config user.email "wolden7620@gmail.com"
+
+      - name: Commit et push du fichier archivé
+        run: |
+          git add $ARCHIVE_NAME
+          git commit -m "Archive Q5 : ajout de $ARCHIVE_NAME" || echo "Aucun changement à committer"
+          git pull --rebase origin main
+          git push origin main
