@@ -13,10 +13,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Récupérer le code
+      - name: Récupérer code
         uses: actions/checkout@v4
 
-      - name: Créer le fichier Q2_archive_TOTO.txt
+      - name: Créer fichier Q2_archive_TOTO.txt
         run: |
           echo "Nom : Yachir Yanis" > Q2_archive_TOTO.txt
           echo "Date et heure d'exécution : $(date)" >> Q2_archive_TOTO.txt
@@ -32,7 +32,7 @@ jobs:
           git config user.name "woldenps"
           git config user.email "wolden7620@gmail.com"
 
-      - name: Commit et push du fichier archivé
+      - name: Commit et push fichier archivé
         run: |
           git add Q2_archive_TOTO.txt
           git commit -m "Archive Q2 : ajout du fichier Q2_archive_TOTO.txt"
