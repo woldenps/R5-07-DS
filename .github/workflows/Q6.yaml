@@ -16,7 +16,7 @@ jobs:
       - name: Récupérer le code
         uses: actions/checkout@v4
 
-      - name: Créer le fichier Q6_archive_date.txt avec date et heure
+      - name: Créer fichier Q6_archive_date.txt avec date et heure
         run: |
           TIMESTAMP=$(date +'%d-%m-%Y-%H%M%S')
           ARCHIVE_NAME="Q6_archive_${TIMESTAMP}.txt"
@@ -34,7 +34,7 @@ jobs:
 
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
 
-      - name: Créer le fichier Q6_différences.txt
+      - name: Créer fichier Q6_différences.txt
         run: |
           # Récupérer le fichier archive précédent (le dernier fichier autre que celui créé)
           PREV_ARCHIVE=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
@@ -51,7 +51,7 @@ jobs:
           git config user.name "woldenps"
           git config user.email "wolden7620@gmail.com"
 
-      - name: Commit et push des fichiers
+      - name: Commit et push fichiers
         run: |
           git add $ARCHIVE_NAME
           if [ -n "$DIFF_FILE" ] && [ -f "$DIFF_FILE" ]; then
