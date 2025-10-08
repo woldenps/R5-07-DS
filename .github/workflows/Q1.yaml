@@ -13,22 +13,20 @@ jobs:
       contents: write
 
     steps:
-      
-    name: Récupérer le code
-          uses: actions/checkout@v4
+      - name: Récupérer le code
+        uses: actions/checkout@v4
 
+      - name: Copier le contenu de TOTO.txt
+        run: |
+          cp TOTO.txt Q1_archive_TOTO.txt
 
-    name: Copier le contenu de TOTO.txt
-          run: |
-            cp TOTO.txt Q1_archive_TOTO.txt
+      - name: Configurer Git
+        run: |
+          git config user.name "woldenps"
+          git config user.email "wolden7620@gmail.com"
 
-    name: Configurer Git
-          run: |
-            git config user.name "woldenps"
-            git config user.email "wolden7620@gmail.com"
-            
-    name: Commit et push du fichier archivé
-          run: |
-            git add Q1_archive_TOTO.txt
-            git commit -m "Archive automatique de TOTO.txt"
-            git push
+      - name: Commit et push du fichier archivé
+        run: |
+          git add Q1_archive_TOTO.txt
+          git commit -m "Archive automatique de TOTO.txt"
+          git push
