@@ -1,0 +1,12 @@
+5,6c5,8
+< public class Q6 {
+<     public static void main(String[] args) {
+---
+> public class Q6 
+> {
+>     public static void main(String[] args) 
+>     {
+12c14
+<   5  13 107 Q6.java
+---
+>   7  13 113 Q6.java
