@@ -13,10 +13,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Récupérer le code
+      - name: Récupérer code
         uses: actions/checkout@v4
 
-      - name: Créer le fichier Q4_archive_date.txt avec la date du jour
+      - name: Créer fichier Q4_archive_date.txt avec date du jour
         run: |
           DATE=$(date +'%d-%m-%Y')
           ARCHIVE_NAME="Q4_archive_${DATE}.txt"
@@ -35,7 +35,7 @@ jobs:
           git config user.name "woldenps"
           git config user.email "wolden7620@gmail.com"
 
-      - name: Commit et push du fichier archivé
+      - name: Commit et push fichier archivé
         run: |
           git add $ARCHIVE_NAME
           git commit -m "Archive Q4 : ajout de $ARCHIVE_NAME" || echo "Aucun changement à committer"
