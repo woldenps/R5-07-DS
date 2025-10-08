@@ -27,7 +27,7 @@ jobs:
           echo "-----------------------------------" >> $ARCHIVE_NAME
           cat Q4.java >> $ARCHIVE_NAME
 
-          # Enregistrer le nom du fichier dans un environnement pour l’étape suivante
+          # Sauvegarder le nom du fichier dans une variable d'environnement
           echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
 
       - name: Configurer Git
@@ -38,5 +38,6 @@ jobs:
       - name: Commit et push du fichier archivé
         run: |
           git add $ARCHIVE_NAME
-          git commit -m "Archive Q4 : ajout de $ARCHIVE_NAME"
-          git push
+          git commit -m "Archive Q4 : ajout de $ARCHIVE_NAME" || echo "Aucun changement à committer"
+          git pull --rebase origin main
+          git push origin main
