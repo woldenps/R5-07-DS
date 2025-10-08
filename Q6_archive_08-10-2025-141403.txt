@@ -1,0 +1,12 @@
+Nom : Yachir Yanis
+
+Contenu du fichier Q6.java :
+-----------------------------------
+public class Q6 {
+    public static void main(String[] args) {
+        System.out.println("test");
+    }
+}
+
+Taille du fichier Q6.java :
+  5  13 107 Q6.java
