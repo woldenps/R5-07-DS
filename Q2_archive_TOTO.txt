@@ -1,0 +1,8 @@
+Nom : Dupont Jean
+Date et heure d'exécution : Wed Oct  8 13:42:39 UTC 2025
+
+Contenu de TOTO.txt :
+test
+
+Taille de TOTO.txt :
+5
